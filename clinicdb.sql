@@ -112,6 +112,7 @@ CREATE TABLE medicine (
   id int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `description` varchar(225) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  unit varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   price double NOT NULL,
   quantity int DEFAULT NULL,
   category_id int NOT NULL,
@@ -286,6 +287,8 @@ DROP TABLE IF EXISTS speciality;
 CREATE TABLE speciality (
   id int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb3_unicode_ci,
+  image varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -339,4 +342,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-08 21:56:44
+-- Dump completed on 2024-06-08 22:35:27
