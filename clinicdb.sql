@@ -27,6 +27,7 @@ CREATE TABLE appointment (
   patient_id int DEFAULT NULL,
   speciality_id int DEFAULT NULL,
   doctor_id int DEFAULT NULL,
+  reason text COLLATE utf8mb4_unicode_ci,
   appointment_time datetime DEFAULT NULL,
   `status` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   confirm_time datetime DEFAULT NULL,
@@ -338,4 +339,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-08 17:57:52
+-- Dump completed on 2024-06-08 21:56:44
