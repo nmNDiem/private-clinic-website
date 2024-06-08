@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS appointment;
 CREATE TABLE appointment (
   id int NOT NULL AUTO_INCREMENT,
   patient_id int DEFAULT NULL,
+  speciality_id int DEFAULT NULL,
   doctor_id int DEFAULT NULL,
   appointment_time datetime DEFAULT NULL,
   `status` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -33,8 +34,10 @@ CREATE TABLE appointment (
   PRIMARY KEY (id),
   KEY fk_appointment_patient_idx (patient_id),
   KEY fk_appointment_doctor_idx (doctor_id),
-  CONSTRAINT fk_appointment_doctor FOREIGN KEY (doctor_id) REFERENCES `user` (id),
-  CONSTRAINT fk_appointment_patient FOREIGN KEY (patient_id) REFERENCES `user` (id)
+  KEY fk_appointment_speciality_idx (speciality_id),
+  CONSTRAINT fk_appointment_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (id),
+  CONSTRAINT fk_appointment_patient FOREIGN KEY (patient_id) REFERENCES `user` (id),
+  CONSTRAINT fk_appointment_speciality FOREIGN KEY (speciality_id) REFERENCES speciality (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -69,6 +72,32 @@ LOCK TABLES category WRITE;
 /*!40000 ALTER TABLE category DISABLE KEYS */;
 INSERT INTO category VALUES (1,'Kháng sinh'),(2,'Kháng viêm'),(3,'Giảm đau'),(4,'Dị ứng'),(5,'Hạ sốt'),(6,'Tim mạch'),(7,'Tiêu hóa'),(8,'Sát trùng');
 /*!40000 ALTER TABLE category ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `doctor`
+--
+
+DROP TABLE IF EXISTS doctor;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE doctor (
+  id int NOT NULL AUTO_INCREMENT,
+  speciality_id int DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY fk_doctor_speciality_idx (speciality_id),
+  CONSTRAINT fk_doctor_speciality FOREIGN KEY (speciality_id) REFERENCES speciality (id),
+  CONSTRAINT fk_doctor_user FOREIGN KEY (id) REFERENCES `user` (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `doctor`
+--
+
+LOCK TABLES doctor WRITE;
+/*!40000 ALTER TABLE doctor DISABLE KEYS */;
+/*!40000 ALTER TABLE doctor ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -247,6 +276,29 @@ LOCK TABLES schedule WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `speciality`
+--
+
+DROP TABLE IF EXISTS speciality;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE speciality (
+  id int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `speciality`
+--
+
+LOCK TABLES speciality WRITE;
+/*!40000 ALTER TABLE speciality DISABLE KEYS */;
+/*!40000 ALTER TABLE speciality ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -286,4 +338,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-03 15:30:58
+-- Dump completed on 2024-06-08 17:57:52
