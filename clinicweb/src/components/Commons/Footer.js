@@ -1,6 +1,8 @@
 const Footer = () => {
     return (
-        <h1>FOOTER</h1>
+        <footer className="bg-dark text-white text-center py-4">
+            <div>&copy; {new Date().getFullYear()} Private Clinic Website</div>
+        </footer>
     );
 }
 
