@@ -86,10 +86,8 @@ CREATE TABLE doctor (
   id int NOT NULL AUTO_INCREMENT,
   speciality_id int DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY fk_doctor_speciality_idx (speciality_id),
-  CONSTRAINT fk_doctor_speciality FOREIGN KEY (speciality_id) REFERENCES speciality (id),
-  CONSTRAINT fk_doctor_user FOREIGN KEY (id) REFERENCES `user` (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  KEY fk_doctor_speciality_idx (speciality_id)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,6 +96,7 @@ CREATE TABLE doctor (
 
 LOCK TABLES doctor WRITE;
 /*!40000 ALTER TABLE doctor DISABLE KEYS */;
+INSERT INTO doctor VALUES (4,1);
 /*!40000 ALTER TABLE doctor ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +289,7 @@ CREATE TABLE speciality (
   `description` text COLLATE utf8mb3_unicode_ci,
   image varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,6 +298,7 @@ CREATE TABLE speciality (
 
 LOCK TABLES speciality WRITE;
 /*!40000 ALTER TABLE speciality DISABLE KEYS */;
+INSERT INTO speciality VALUES (1,'Tim mạch','Chuyên khoa Tim mạch tập trung vào việc chẩn đoán và điều trị các bệnh liên quan đến tim và hệ tuần hoàn. Các bác sĩ tim mạch điều trị các tình trạng như bệnh mạch vành, suy tim, loạn nhịp tim, và tăng huyết áp. Các phương pháp chẩn đoán thường sử dụng bao gồm điện tâm đồ (ECG), siêu âm tim và chụp mạch vành.','https://res.cloudinary.com/dgcezbyyd/image/upload/v1716802465/pexels-karolina-grabowska-4386467_bn5bo3.jpg'),(2,'Hô hấp','Chuyên khoa Hô hấp chuyên về các bệnh liên quan đến hệ hô hấp, bao gồm phổi và đường hô hấp. Các bác sĩ chuyên khoa này điều trị các bệnh như viêm phổi, hen suyễn, bệnh phổi tắc nghẽn mãn tính (COPD), và lao phổi. Các phương pháp chẩn đoán bao gồm đo chức năng hô hấp, X-quang phổi, và CT scan phổi.','https://res.cloudinary.com/dgcezbyyd/image/upload/v1716802632/pexels-karolina-grabowska-5206922_bjojqu.jpg'),(3,'Thần kinh','Chuyên khoa Thần kinh tập trung vào việc chẩn đoán và điều trị các bệnh liên quan đến hệ thần kinh, bao gồm não, tủy sống, và các dây thần kinh ngoại biên. Các bác sĩ thần kinh điều trị các tình trạng như đột quỵ, động kinh, Parkinson, đau đầu, và bệnh Alzheimer. Các phương pháp chẩn đoán thường sử dụng bao gồm MRI, CT scan, và điện não đồ (EEG).','https://res.cloudinary.com/dgcezbyyd/image/upload/v1716802632/pexels-karolina-grabowska-5206922_bjojqu.jpg'),(4,'Tai mũi họng','Chuyên khoa Tai Mũi Họng chuyên về các bệnh và rối loạn liên quan đến tai, mũi, họng, cũng như các cấu trúc liên quan ở đầu và cổ. Các bác sĩ tai mũi họng điều trị các bệnh như viêm tai giữa, viêm xoang, viêm họng, và các vấn đề về giọng nói. Các phương pháp chẩn đoán thường sử dụng bao gồm nội soi, đo thính lực và chụp CT.','https://res.cloudinary.com/dgcezbyyd/image/upload/v1716802632/pexels-karolina-grabowska-5206922_bjojqu.jpg'),(5,'Cơ xương khớp','Chuyên khoa Cơ Xương Khớp tập trung vào việc chẩn đoán và điều trị các bệnh lý liên quan đến xương, khớp và các mô liên kết. Các bác sĩ chuyên khoa này điều trị các bệnh như viêm khớp dạng thấp, lupus, bệnh gút, và loãng xương. Các phương pháp chẩn đoán bao gồm xét nghiệm máu, X-quang, và MRI.','https://res.cloudinary.com/dgcezbyyd/image/upload/v1716802632/pexels-karolina-grabowska-5206922_bjojqu.jpg'),(6,'Tiêu hóa','Chuyên khoa Tiêu hóa chuyên về các bệnh lý liên quan đến hệ tiêu hóa, bao gồm dạ dày, ruột, gan, và tụy. Các bác sĩ tiêu hóa điều trị các bệnh như viêm loét dạ dày, hội chứng ruột kích thích, viêm gan, và bệnh Crohn. Các phương pháp chẩn đoán thường sử dụng bao gồm nội soi dạ dày, nội soi đại tràng và siêu âm bụng.','https://res.cloudinary.com/dgcezbyyd/image/upload/v1716802632/pexels-karolina-grabowska-5206922_bjojqu.jpg'),(7,'Thận','Chuyên khoa Thận tập trung vào việc chẩn đoán và điều trị các bệnh lý liên quan đến thận và hệ tiết niệu. Các bác sĩ thận điều trị các bệnh như suy thận, viêm cầu thận, sỏi thận và tăng huyết áp liên quan đến thận. Các phương pháp chẩn đoán bao gồm xét nghiệm máu, xét nghiệm nước tiểu, siêu âm thận và sinh thiết thận.','https://res.cloudinary.com/dgcezbyyd/image/upload/v1716802632/pexels-karolina-grabowska-5206922_bjojqu.jpg'),(8,'Nội tiết','Chuyên khoa Nội tiết chuyên về các bệnh lý liên quan đến hệ thống nội tiết và các tuyến hormone, như tuyến giáp, tuyến thượng thận, tuyến tụy và tuyến yên. Các bác sĩ nội tiết điều trị các bệnh như tiểu đường, suy giáp, cường giáp, và các rối loạn hormone khác. Các phương pháp chẩn đoán bao gồm xét nghiệm máu, siêu âm tuyến giáp và các xét nghiệm chức năng hormone.\n\n\n\n\n\n\n','https://res.cloudinary.com/dgcezbyyd/image/upload/v1716802632/pexels-karolina-grabowska-5206922_bjojqu.jpg');
 /*!40000 ALTER TABLE speciality ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,7 +313,7 @@ CREATE TABLE `user` (
   id int NOT NULL AUTO_INCREMENT,
   username varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  user_role varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  user_role varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   avatar varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   gender varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -321,7 +321,7 @@ CREATE TABLE `user` (
   phone_number varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   email varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,6 +330,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES user WRITE;
 /*!40000 ALTER TABLE user DISABLE KEYS */;
+INSERT INTO user VALUES (3,'admin','123456','ROLE_ADMIN','abc','Admin',NULL,NULL,NULL,'admin@gmail.com'),(4,'doctor1','123456','ROLE_DOCTOR','abc','Nguyễn Thanh Thái',NULL,NULL,'0987654321','thanhthai@gmail.com'),(5,'nurse1','123456','ROLE_NURSE','abc','Trần Ngọc Trang',NULL,NULL,'0987123456','ngoctrang@gmail.com'),(6,'patient1','123456','ROLE_PATIENT','abc','Bùi Quang Lan',NULL,NULL,'0123456789','quanglan@gmail.com');
 /*!40000 ALTER TABLE user ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -342,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-08 22:35:27
+-- Dump completed on 2024-06-14 17:42:20
