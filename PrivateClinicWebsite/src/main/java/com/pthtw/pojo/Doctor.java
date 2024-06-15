@@ -1,0 +1,103 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.pthtw.pojo;
+
+import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+/**
+ *
+ * @author admin
+ */
+@Entity
+@Table(name = "doctor")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d"),
+    @NamedQuery(name = "Doctor.findById", query = "SELECT d FROM Doctor d WHERE d.id = :id"),
+    @NamedQuery(name = "Doctor.findBySpecialityId", query = "SELECT d FROM Doctor d WHERE d.specialityId = :specialityId")})
+public class Doctor implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "speciality_id")
+    private Integer specialityId;
+    @OneToMany(mappedBy = "doctorId")
+    private Set<Appointment> appointmentSet;
+
+    public Doctor() {
+    }
+
+    public Doctor(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getSpecialityId() {
+        return specialityId;
+    }
+
+    public void setSpecialityId(Integer specialityId) {
+        this.specialityId = specialityId;
+    }
+
+    @XmlTransient
+    public Set<Appointment> getAppointmentSet() {
+        return appointmentSet;
+    }
+
+    public void setAppointmentSet(Set<Appointment> appointmentSet) {
+        this.appointmentSet = appointmentSet;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Doctor)) {
+            return false;
+        }
+        Doctor other = (Doctor) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.pthtw.pojo.Doctor[ id=" + id + " ]";
+    }
+    
+}
