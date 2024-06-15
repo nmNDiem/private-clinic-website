@@ -162,6 +162,52 @@ LOCK TABLES medicines_in_prescription WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `nurse`
+--
+
+DROP TABLE IF EXISTS nurse;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE nurse (
+  id int NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_nurse_user FOREIGN KEY (id) REFERENCES `user` (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nurse`
+--
+
+LOCK TABLES nurse WRITE;
+/*!40000 ALTER TABLE nurse DISABLE KEYS */;
+/*!40000 ALTER TABLE nurse ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patient`
+--
+
+DROP TABLE IF EXISTS patient;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE patient (
+  id int NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_patient_user FOREIGN KEY (id) REFERENCES `user` (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patient`
+--
+
+LOCK TABLES patient WRITE;
+/*!40000 ALTER TABLE patient DISABLE KEYS */;
+/*!40000 ALTER TABLE patient ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `payment_method`
 --
 
@@ -312,7 +358,7 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE `user` (
   id int NOT NULL AUTO_INCREMENT,
   username varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   user_role varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   avatar varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -330,7 +376,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES user WRITE;
 /*!40000 ALTER TABLE user DISABLE KEYS */;
-INSERT INTO user VALUES (3,'admin','123456','ROLE_ADMIN','abc','Admin',NULL,NULL,NULL,'admin@gmail.com'),(4,'doctor1','123456','ROLE_DOCTOR','abc','Nguyễn Thanh Thái',NULL,NULL,'0987654321','thanhthai@gmail.com'),(5,'nurse1','123456','ROLE_NURSE','abc','Trần Ngọc Trang',NULL,NULL,'0987123456','ngoctrang@gmail.com'),(6,'patient1','123456','ROLE_PATIENT','abc','Bùi Quang Lan',NULL,NULL,'0123456789','quanglan@gmail.com');
+INSERT INTO user VALUES (3,'admin','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO','ROLE_ADMIN','abc','Admin',NULL,NULL,NULL,'admin@gmail.com'),(4,'doctor1','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO','ROLE_DOCTOR','abc','Nguyễn Thanh Thái',NULL,NULL,'0987654321','thanhthai@gmail.com'),(5,'nurse1','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO','ROLE_NURSE','abc','Trần Ngọc Trang',NULL,NULL,'0987123456','ngoctrang@gmail.com'),(6,'patient1','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO','ROLE_PATIENT','abc','Bùi Quang Lan',NULL,NULL,'0123456789','quanglan@gmail.com');
 /*!40000 ALTER TABLE user ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -343,4 +389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-14 17:42:20
+-- Dump completed on 2024-06-15 11:02:42
