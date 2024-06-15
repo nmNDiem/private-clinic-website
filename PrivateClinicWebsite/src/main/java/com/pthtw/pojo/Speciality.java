@@ -56,6 +56,8 @@ public class Speciality implements Serializable {
     private String image;
     @OneToMany(mappedBy = "specialityId")
     private Set<Appointment> appointmentSet;
+    @OneToMany(mappedBy = "specialityId")
+    private Set<Doctor> doctorSet;
 
     public Speciality() {
     }
@@ -108,6 +110,15 @@ public class Speciality implements Serializable {
 
     public void setAppointmentSet(Set<Appointment> appointmentSet) {
         this.appointmentSet = appointmentSet;
+    }
+
+    @XmlTransient
+    public Set<Doctor> getDoctorSet() {
+        return doctorSet;
+    }
+
+    public void setDoctorSet(Set<Doctor> doctorSet) {
+        this.doctorSet = doctorSet;
     }
 
     @Override

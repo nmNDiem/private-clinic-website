@@ -95,6 +95,8 @@ public class User implements Serializable {
     private String email;
     @OneToMany(mappedBy = "patientId")
     private Set<Appointment> appointmentSet;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Doctor doctor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Schedule> scheduleSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
@@ -208,6 +210,14 @@ public class User implements Serializable {
 
     public void setAppointmentSet(Set<Appointment> appointmentSet) {
         this.appointmentSet = appointmentSet;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     @XmlTransient

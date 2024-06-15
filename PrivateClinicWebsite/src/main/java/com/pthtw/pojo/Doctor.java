@@ -12,9 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -28,8 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d"),
-    @NamedQuery(name = "Doctor.findById", query = "SELECT d FROM Doctor d WHERE d.id = :id"),
-    @NamedQuery(name = "Doctor.findBySpecialityId", query = "SELECT d FROM Doctor d WHERE d.specialityId = :specialityId")})
+    @NamedQuery(name = "Doctor.findById", query = "SELECT d FROM Doctor d WHERE d.id = :id")})
 public class Doctor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,10 +40,14 @@ public class Doctor implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "speciality_id")
-    private Integer specialityId;
     @OneToMany(mappedBy = "doctorId")
     private Set<Appointment> appointmentSet;
+    @JoinColumn(name = "speciality_id", referencedColumnName = "id")
+    @ManyToOne
+    private Speciality specialityId;
+    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private User user;
 
     public Doctor() {
     }
@@ -58,14 +64,6 @@ public class Doctor implements Serializable {
         this.id = id;
     }
 
-    public Integer getSpecialityId() {
-        return specialityId;
-    }
-
-    public void setSpecialityId(Integer specialityId) {
-        this.specialityId = specialityId;
-    }
-
     @XmlTransient
     public Set<Appointment> getAppointmentSet() {
         return appointmentSet;
@@ -73,6 +71,22 @@ public class Doctor implements Serializable {
 
     public void setAppointmentSet(Set<Appointment> appointmentSet) {
         this.appointmentSet = appointmentSet;
+    }
+
+    public Speciality getSpecialityId() {
+        return specialityId;
+    }
+
+    public void setSpecialityId(Speciality specialityId) {
+        this.specialityId = specialityId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
