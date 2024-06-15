@@ -86,7 +86,9 @@ CREATE TABLE doctor (
   id int NOT NULL AUTO_INCREMENT,
   speciality_id int DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY fk_doctor_speciality_idx (speciality_id)
+  KEY fk_doctor_speciality_idx (speciality_id),
+  CONSTRAINT fk_doctor_speciality FOREIGN KEY (speciality_id) REFERENCES speciality (id),
+  CONSTRAINT fk_doctor_user FOREIGN KEY (id) REFERENCES `user` (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -389,4 +391,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-15 11:02:42
+-- Dump completed on 2024-06-15 12:09:24
