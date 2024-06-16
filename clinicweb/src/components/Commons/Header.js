@@ -29,7 +29,7 @@ const Header = () => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Trang chủ</Nav.Link>
+                        <Nav.Link href="#action">Trang chủ</Nav.Link>
 
                         <NavDropdown title="Chuyên khoa" id="navbarScrollingDropdown">
                             {specialities === null ? <Spinner animation="border" variant="secondary" /> : <>
