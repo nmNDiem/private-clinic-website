@@ -1,6 +1,23 @@
-import { Button, Container, Form, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Container, Form, Nav, NavDropdown, Navbar, Spinner } from "react-bootstrap";
+import APIs, { endpoints } from "../../configs/APIs";
 
 const Header = () => {
+    const [specialities, setSpecialities] = useState(null);
+
+    const loadSpecs = async () => {
+        try {
+            let res = await APIs.get(endpoints['specialities']);
+            setSpecialities(res.data);
+        } catch (ex) {
+            console.error(ex);
+        }
+    }
+
+    useEffect(() => {
+        loadSpecs();
+    }, [])
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
@@ -15,14 +32,9 @@ const Header = () => {
                         <Nav.Link href="#action1">Trang chủ</Nav.Link>
 
                         <NavDropdown title="Chuyên khoa" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action4">
-                                Another action
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action5">
-                                Something else here
-                            </NavDropdown.Item>
+                            {specialities === null ? <Spinner animation="border" variant="secondary" /> : <>
+                                {specialities.map(s => <NavDropdown.Item key={s.id} href="#">{s.name}</NavDropdown.Item>)}
+                            </>}
                         </NavDropdown>
 
                         <Nav.Link href="#">
