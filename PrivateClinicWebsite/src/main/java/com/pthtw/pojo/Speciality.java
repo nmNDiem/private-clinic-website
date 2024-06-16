@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -55,8 +56,10 @@ public class Speciality implements Serializable {
     @Column(name = "image")
     private String image;
     @OneToMany(mappedBy = "specialityId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet;
     @OneToMany(mappedBy = "specialityId")
+    @JsonIgnore
     private Set<Doctor> doctorSet;
 
     public Speciality() {
