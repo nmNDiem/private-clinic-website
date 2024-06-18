@@ -4,6 +4,8 @@
  */
 package com.pthtw.configs;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -65,5 +67,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
     }
     
-    
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "dgcezbyyd",
+                        "api_key", "959814221454165",
+                        "api_secret", "SCNdzcyfAjuekjMf2GjM0QqgKvY",
+                        "secure", true));
+        return cloudinary;
+    }
 }

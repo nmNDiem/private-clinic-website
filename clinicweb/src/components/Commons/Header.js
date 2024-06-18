@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Form, Nav, NavDropdown, Navbar, Spinner } from "react-bootstrap";
 import APIs, { endpoints } from "../../configs/APIs";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
     const [specialities, setSpecialities] = useState(null);
+    const [kw, setKw] = useState("");
+    const nav = useNavigate();
 
     const loadSpecs = async () => {
         try {
@@ -17,6 +20,11 @@ const Header = () => {
     useEffect(() => {
         loadSpecs();
     }, [])
+
+    const submit = (event) => {
+        event.prevenDefault();
+        nav(`/?kw=${kw}`);
+    }
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -33,7 +41,7 @@ const Header = () => {
 
                         <NavDropdown title="Chuyên khoa" id="navbarScrollingDropdown">
                             {specialities === null ? <Spinner animation="border" variant="secondary" /> : <>
-                                {specialities.map(s => <NavDropdown.Item key={s.id} href="#">{s.name}</NavDropdown.Item>)}
+                                {specialities.map(s => <Link className="nav-link" key={s.id}>{s.name}</Link>)}
                             </>}
                         </NavDropdown>
 
@@ -46,14 +54,13 @@ const Header = () => {
                         </Nav.Link>
                     </Nav>
 
-                    <Form className="d-flex me-auto">
-                        <Form.Control
+                    <Form className="d-flex me-auto" onSubmit={submit}>
+                        <Form.Control value={kw} onChange={e => setKw(e.target.value)}
                             type="search"
                             placeholder="Tìm kiếm"
                             className="me-2"
-                            aria-label="Search"
                         />
-                        <Button variant="info">Tìm</Button>
+                        <Button type="submit" variant="info">Tìm</Button>
                     </Form>
 
                     <Button className="me-2" variant="outline-success">Đăng ký</Button>
