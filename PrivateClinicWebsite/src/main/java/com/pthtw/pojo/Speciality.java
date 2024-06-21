@@ -57,9 +57,6 @@ public class Speciality implements Serializable {
     private String image;
     @OneToMany(mappedBy = "specialityId")
     @JsonIgnore
-    private Set<Appointment> appointmentSet;
-    @OneToMany(mappedBy = "specialityId")
-    @JsonIgnore
     private Set<Doctor> doctorSet;
 
     public Speciality() {
@@ -104,15 +101,6 @@ public class Speciality implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    @XmlTransient
-    public Set<Appointment> getAppointmentSet() {
-        return appointmentSet;
-    }
-
-    public void setAppointmentSet(Set<Appointment> appointmentSet) {
-        this.appointmentSet = appointmentSet;
     }
 
     @XmlTransient

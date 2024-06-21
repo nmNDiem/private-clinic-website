@@ -29,7 +29,7 @@ const Header = () => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
-                <Navbar.Brand href="#">Phòng mạch tư</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">Phòng mạch tư</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -37,19 +37,20 @@ const Header = () => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action">Trang chủ</Nav.Link>
+                        <Nav.Link as={Link} to="/">Trang chủ</Nav.Link>
 
                         <NavDropdown title="Chuyên khoa" id="navbarScrollingDropdown">
                             {specialities === null ? <Spinner animation="border" variant="secondary" /> : <>
-                                {specialities.map(s => <Link className="nav-link" key={s.id}>{s.name}</Link>)}
+                                {specialities.map(s =>
+                                    <Link key={s.id} className="nav-link" to={`/specialities/${s.id}`}>{s.name}</Link>)}
                             </>}
                         </NavDropdown>
 
-                        <Nav.Link href="#">
+                        <Nav.Link as={Link} to="/doctors">
                             Đội ngũ bác sĩ
                         </Nav.Link>
 
-                        <Nav.Link href="#">
+                        <Nav.Link as={Link} to="/appointments">
                             &#128197; Lịch khám
                         </Nav.Link>
                     </Nav>
@@ -63,8 +64,8 @@ const Header = () => {
                         <Button type="submit" variant="info">Tìm</Button>
                     </Form>
 
-                    <Button className="me-2" variant="outline-success">Đăng ký</Button>
-                    <Button className="me-2" variant="outline-primary">Đăng nhập</Button>
+                    <Button onClick={() => { nav("/register") }} className="me-2" variant="outline-success">Đăng ký</Button>
+                    <Button onClick={() => { nav("/login") }} className="me-2" variant="outline-primary">Đăng nhập</Button>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

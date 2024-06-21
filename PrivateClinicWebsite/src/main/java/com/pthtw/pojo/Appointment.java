@@ -67,12 +67,9 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     @ManyToOne
     private Doctor doctorId;
-    @JoinColumn(name = "speciality_id", referencedColumnName = "id")
-    @ManyToOne
-    private Speciality specialityId;
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     @ManyToOne
-    private User patientId;
+    private Patient patientId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentId")
     private Set<Prescription> prescriptionSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentId")
@@ -141,19 +138,11 @@ public class Appointment implements Serializable {
         this.doctorId = doctorId;
     }
 
-    public Speciality getSpecialityId() {
-        return specialityId;
-    }
-
-    public void setSpecialityId(Speciality specialityId) {
-        this.specialityId = specialityId;
-    }
-
-    public User getPatientId() {
+    public Patient getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(User patientId) {
+    public void setPatientId(Patient patientId) {
         this.patientId = patientId;
     }
 

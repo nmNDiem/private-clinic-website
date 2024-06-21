@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface SpecialityRepository {
     List<Speciality> getSpecialities();
+    Speciality getSpecById(int id);
 }

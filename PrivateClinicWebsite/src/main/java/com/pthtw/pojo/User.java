@@ -4,12 +4,8 @@
  */
 package com.pthtw.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,16 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -42,12 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
-    @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar"),
-    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
-    @NamedQuery(name = "User.findByGender", query = "SELECT u FROM User u WHERE u.gender = :gender"),
-    @NamedQuery(name = "User.findByBirthday", query = "SELECT u FROM User u WHERE u.birthday = :birthday"),
-    @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
+    @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,41 +63,12 @@ public class User implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "avatar")
     private String avatar;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "name")
-    private String name;
-    @Size(max = 20)
-    @Column(name = "gender")
-    private String gender;
-    @Column(name = "birthday")
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
-    @Size(max = 10)
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "email")
-    private String email;
-    @OneToMany(mappedBy = "patientId")
-    @JsonIgnore
-    private Set<Appointment> appointmentSet;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(mappedBy = "userId")
     private Doctor doctor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    @JsonIgnore
-    private Set<Schedule> scheduleSet;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(mappedBy = "userId")
     private Patient patient;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(mappedBy = "userId")
     private Nurse nurse;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nurseId")
-    @JsonIgnore
-    private Set<Receipt> receiptSet;
     
     @Transient
     private MultipartFile file;
@@ -122,14 +80,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password, String userRole, String avatar, String name, String email) {
+    public User(Integer id, String username, String password, String userRole, String avatar) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.userRole = userRole;
         this.avatar = avatar;
-        this.name = name;
-        this.email = email;
     }
 
     public Integer getId() {
@@ -172,70 +128,12 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @XmlTransient
-    public Set<Appointment> getAppointmentSet() {
-        return appointmentSet;
-    }
-
-    public void setAppointmentSet(Set<Appointment> appointmentSet) {
-        this.appointmentSet = appointmentSet;
-    }
-
     public Doctor getDoctor() {
         return doctor;
     }
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
-    }
-
-    @XmlTransient
-    public Set<Schedule> getScheduleSet() {
-        return scheduleSet;
-    }
-
-    public void setScheduleSet(Set<Schedule> scheduleSet) {
-        this.scheduleSet = scheduleSet;
     }
 
     public Patient getPatient() {
@@ -252,15 +150,6 @@ public class User implements Serializable {
 
     public void setNurse(Nurse nurse) {
         this.nurse = nurse;
-    }
-
-    @XmlTransient
-    public Set<Receipt> getReceiptSet() {
-        return receiptSet;
-    }
-
-    public void setReceiptSet(Set<Receipt> receiptSet) {
-        this.receiptSet = receiptSet;
     }
 
     @Override

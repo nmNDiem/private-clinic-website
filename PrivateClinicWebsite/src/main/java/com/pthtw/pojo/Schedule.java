@@ -6,22 +6,24 @@ package com.pthtw.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s"),
     @NamedQuery(name = "Schedule.findById", query = "SELECT s FROM Schedule s WHERE s.id = :id"),
+    @NamedQuery(name = "Schedule.findByUserId", query = "SELECT s FROM Schedule s WHERE s.userId = :userId"),
     @NamedQuery(name = "Schedule.findByWorkDate", query = "SELECT s FROM Schedule s WHERE s.workDate = :workDate"),
     @NamedQuery(name = "Schedule.findByShift", query = "SELECT s FROM Schedule s WHERE s.shift = :shift"),
     @NamedQuery(name = "Schedule.findByNote", query = "SELECT s FROM Schedule s WHERE s.note = :note")})
@@ -46,6 +49,10 @@ public class Schedule implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "user_id")
+    private int userId;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "work_date")
     @Temporal(TemporalType.DATE)
     private Date workDate;
@@ -57,9 +64,10 @@ public class Schedule implements Serializable {
     @Size(max = 100)
     @Column(name = "note")
     private String note;
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private User userId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "scheduleId")
+    private Set<ScheduleDoctor> scheduleDoctorSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "scheduleId")
+    private Set<ScheduleNurse> scheduleNurseSet;
 
     public Schedule() {
     }
@@ -68,8 +76,9 @@ public class Schedule implements Serializable {
         this.id = id;
     }
 
-    public Schedule(Integer id, Date workDate, String shift) {
+    public Schedule(Integer id, int userId, Date workDate, String shift) {
         this.id = id;
+        this.userId = userId;
         this.workDate = workDate;
         this.shift = shift;
     }
@@ -80,6 +89,14 @@ public class Schedule implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public Date getWorkDate() {
@@ -106,12 +123,22 @@ public class Schedule implements Serializable {
         this.note = note;
     }
 
-    public User getUserId() {
-        return userId;
+    @XmlTransient
+    public Set<ScheduleDoctor> getScheduleDoctorSet() {
+        return scheduleDoctorSet;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setScheduleDoctorSet(Set<ScheduleDoctor> scheduleDoctorSet) {
+        this.scheduleDoctorSet = scheduleDoctorSet;
+    }
+
+    @XmlTransient
+    public Set<ScheduleNurse> getScheduleNurseSet() {
+        return scheduleNurseSet;
+    }
+
+    public void setScheduleNurseSet(Set<ScheduleNurse> scheduleNurseSet) {
+        this.scheduleNurseSet = scheduleNurseSet;
     }
 
     @Override
