@@ -53,11 +53,6 @@ public class ApiUserController {
         if (file.length > 0) {
             u.setFile(file[0]);
         }
-        u.setName(params.get("name"));
-        u.setGender(params.get("gender"));
-        u.setBirthday(date);
-        u.setPhoneNumber(params.get("phoneNumber"));
-        u.setEmail(params.get("email"));
         
         this.userService.addUser(u);
     }

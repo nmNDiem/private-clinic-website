@@ -26,5 +26,10 @@ public class SpecialityServiceImpl implements SpecialityService {
     public List<Speciality> getSpecialities() {
         return this.specRepo.getSpecialities();
     }
+
+    @Override
+    public Speciality getSpecById(int id) {
+        return this.specRepo.getSpecById(id);
+    }
     
 }

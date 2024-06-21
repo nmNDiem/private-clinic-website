@@ -53,12 +53,12 @@ public class Receipt implements Serializable {
     @JoinColumn(name = "appointment_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Appointment appointmentId;
+    @JoinColumn(name = "nurse_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Nurse nurseId;
     @JoinColumn(name = "payment_method_id", referencedColumnName = "id")
     @ManyToOne
     private PaymentMethod paymentMethodId;
-    @JoinColumn(name = "nurse_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private User nurseId;
 
     public Receipt() {
     }
@@ -107,20 +107,20 @@ public class Receipt implements Serializable {
         this.appointmentId = appointmentId;
     }
 
+    public Nurse getNurseId() {
+        return nurseId;
+    }
+
+    public void setNurseId(Nurse nurseId) {
+        this.nurseId = nurseId;
+    }
+
     public PaymentMethod getPaymentMethodId() {
         return paymentMethodId;
     }
 
     public void setPaymentMethodId(PaymentMethod paymentMethodId) {
         this.paymentMethodId = paymentMethodId;
-    }
-
-    public User getNurseId() {
-        return nurseId;
-    }
-
-    public void setNurseId(User nurseId) {
-        this.nurseId = nurseId;
     }
 
     @Override

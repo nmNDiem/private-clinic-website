@@ -28,5 +28,11 @@ public class SpecialityRepositoryImpl implements SpecialityRepository {
         Query q = s.createNamedQuery("Speciality.findAll");
         return q.getResultList();
     }
+
+    @Override
+    public Speciality getSpecById(int id) {
+        Session s = this.fatory.getObject().getCurrentSession();
+        return s.get(Speciality.class, id);
+    }
     
 }
