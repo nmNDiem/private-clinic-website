@@ -5,13 +5,25 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="<c:url value="/"/>">Quản lý phòng mạch tư</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/"/>">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/doctor"/>">Quản lý bác sĩ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/yta"/>">Quản lý y tá</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

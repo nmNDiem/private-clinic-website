@@ -5,13 +5,23 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta http-equiv="Content-Type" content="text/html; lang="vi">
+        <meta charset="ISO-8859-1">
+        <title>
+            <tiles:insertAttribute name="title"/>
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <tiles:insertAttribute name="header"/>
+        <section class="container">
+            <tiles:insertAttribute name="content"/>
+        </section>
+        <tiles:insertAttribute name="footer"/>
     </body>
 </html>

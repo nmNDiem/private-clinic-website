@@ -1,25 +1,28 @@
 <%-- 
-    Document   : find
-    Created on : Jun 21, 2024, 8:52:03 AM
+    Document   : doctor
+    Created on : Jun 21, 2024, 9:11:31 PM
     Author     : Linh
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div class="text-primary text-center mt-1">
     <h1>DANH SÁCH BÁC SĨ</h1>
 </div>
-<!--<form action="/findDoctor" method="get">
+<div class="mt-3">
+    <a class="btn btn-info" href="<c:url value="/addDoctor"/>">Thêm</a> 
+</div>
+<form action="http://localhost:8080/PrivateClinicWebsite/findDoctor" method="get">
     <label for="kw">Nhập từ khóa</label>
     <input type="text" id="kw" name="kw" />
     <button type="submit" class="btn btn-info">Tìm kiếm</button>  
-</form>-->
-<%--<c:url value="/doctor" var="action"/>
-<form:form action="${action}" modelAttribute="kw" method="get">
-    <form:input class="form-control" id="kw" placeholder="Tên bác sĩ" path="kw" /> 
+</form>
+<%--<c:url value="/findDoctor" var="action"/>
+<form:form action="${action}" method="get">
+    <form:input class="form-control" id="kw" placeholder="Tên bác sĩ" path="name"/> 
     <label for="kw">Tên bác sĩ</label>
-    <a class="btn btn-info float-end" href="<c:url value="/findDoctor"/>">Tìm kiếm</a>
+    <button class="btn btn-info float-end" type="submit">">Tìm kiếm</button>
 </form:form>--%>
 <div class="container mt-3">
     <table class="table table-striped">
@@ -49,9 +52,16 @@
                     <td>${d.phoneNumber}</td>
                     <td>${d.email}</td>
                     <td>${d.specialityId.name}</td>
-                    
+                    <td>
+                        <c:url value="/deleteDoctor/${d.id}" var="url"/>
+                        <a class="btn btn-info" href="<c:url value="/updateDoctor/${d.id}"/>">Cập nhật</a>
+                        <button onclick="deleteDoctor('${url}', ${d.id})" class="btn btn-danger">Xóa</button>
+
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>    
 </div>
+
+<script src="<c:url value="/js/script.js"/>"></script>
