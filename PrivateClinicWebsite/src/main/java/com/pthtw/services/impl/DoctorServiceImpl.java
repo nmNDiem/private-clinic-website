@@ -26,10 +26,9 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     private DoctorRepository docRepo;
-
     @Autowired
     private Cloudinary cloudinary;
-
+  
     @Override
     public List<Doctor> getList() {
         return this.docRepo.getList();
@@ -64,4 +63,8 @@ public class DoctorServiceImpl implements DoctorService {
         return this.docRepo.find(kw);
     }
 
+    @Override
+    public List<Doctor> getDoctorsBySpecId(int specId) {
+        return this.docRepo.getDoctorsBySpecId(specId);
+    }
 }
