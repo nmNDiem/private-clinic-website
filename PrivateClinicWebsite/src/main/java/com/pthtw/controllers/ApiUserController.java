@@ -49,11 +49,11 @@ public class ApiUserController {
         u.setPassword(this.passwordEncoder.encode(password));
         
         u.setUserRole("ROLE_PATIENT");
-        
+      
 //        if (file.length > 0) {
 //            u.setFile(file[0]);
 //        }
         
-        this.userService.addUser(u);
+        this.userService.addUser(u);*/
     }
 }

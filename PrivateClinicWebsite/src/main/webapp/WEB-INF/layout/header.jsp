@@ -21,7 +21,7 @@
                     <a class="nav-link" href="<c:url value="/doctor"/>">Quản lý bác sĩ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/yta"/>">Quản lý y tá</a>
+                    <a class="nav-link" href="<c:url value="/nurse"/>">Quản lý y tá</a>
                 </li>
             </ul>
         </div>

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author admin
+ * @author Linh
  */
 @Entity
 @Table(name = "appointment")
@@ -55,7 +55,7 @@ public class Appointment implements Serializable {
     @Column(name = "reason")
     private String reason;
     @Column(name = "appointment_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date appointmentDate;
     @Size(max = 45)
     @Column(name = "status")

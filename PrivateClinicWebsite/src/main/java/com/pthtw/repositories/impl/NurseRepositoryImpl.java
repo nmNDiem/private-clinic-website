@@ -4,8 +4,8 @@
  */
 package com.pthtw.repositories.impl;
 
-import com.pthtw.pojo.Doctor;
-import com.pthtw.repositories.DoctorRepository;
+import com.pthtw.pojo.Nurse;
+import com.pthtw.repositories.NurseRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -24,71 +24,60 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class DoctorRepositoryImpl implements DoctorRepository{
+public class NurseRepositoryImpl implements NurseRepository{
 
     @Autowired
-    private LocalSessionFactoryBean factory; 
+    private LocalSessionFactoryBean factory;
     
     @Override
-    public List<Doctor> getList() {
+    public List<Nurse> getList() {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = s.getCriteriaBuilder();
-        CriteriaQuery query = builder.createQuery(Doctor.class);
-        Root<Doctor> root = query.from(Doctor.class);
+        CriteriaQuery query = builder.createQuery(Nurse.class);
+        Root<Nurse> root = query.from(Nurse.class);
         query.select(root);
         
         Query q = s.createQuery(query);
-        List<Doctor> listDoc = q.getResultList();
-        return listDoc;
+        List<Nurse> listNurse = q.getResultList();
+        return listNurse;
     }
 
     @Override
-    public void addOrUpdate(Doctor d) {
-        Session s = this.factory.getObject().getCurrentSession();      
-        if (d.getId() != null) {
-            s.update(d);
-        }
+    public void addOrUpdate(Nurse n) {
+        Session s = this.factory.getObject().getCurrentSession();
+        if (n.getId() != null)
+            s.update(n);
         else
-            s.save(d);
+            s.save(n);
     }
 
     @Override
-    public Doctor getDoctorById(int id) {
+    public Nurse getNurseById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Doctor.class, id);
+        return s.get(Nurse.class, id);
     }
 
     @Override
-    public void deleteDoctor(int id) {
+    public void deleteNurse(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        Doctor d = this.getDoctorById(id);
+        Nurse d = this.getNurseById(id);
         s.delete(d);
     }
 
     @Override
-    public List<Doctor> find(String kw) {
-        List<Doctor> listAll= this.getList();
-        List<Doctor> listDoc = new ArrayList<>();
+    public List<Nurse> find(String kw) {
+        List<Nurse> listAll= this.getList();
+        List<Nurse> listNurse = new ArrayList<>();
         if (kw != null) { 
             for (int i = 0; i < listAll.size(); i++) {  
                 if (listAll.get(i).getName().contains(kw)) {
-                    Doctor d = listAll.get(i);
-                    listDoc.add(d);
+                    Nurse n = listAll.get(i);
+                    listNurse.add(n);
                 }
             }
-            return listDoc;
+            return listNurse;
         }
         return listAll;
     }
-
-    @Override
-    public List<Doctor> getDoctorsBySpecId(int specId) {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("Doctor.findBySpecId");
-        q.setParameter("specialityId", specId);
-        return q.getResultList();
-    }
-    
-    
     
 }

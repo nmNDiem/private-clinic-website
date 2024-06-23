@@ -24,15 +24,14 @@
     </definition>
     <definition name="findDoctor" extends="baseLayout">
         <put-attribute name="title" value="Tìm kiếm"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/doctor.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/pages/doctor.jsp"/>
     </definition>
-    <!--
-    <definition name="yta" extends="baseLayout">
+    <definition name="nurse" extends="baseLayout">
         <put-attribute name="title" value="Danh sách y tá"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/yta.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/pages/nurse.jsp"/>
     </definition>
-    <definition name="addYTa" extends="baseLayout">
+    <definition name="addNurse" extends="baseLayout">
         <put-attribute name="title" value="Thêm y tá"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/addYTa.jsp"/>
-    </definition>-->
+        <put-attribute name="content" value="/WEB-INF/pages/addNurse.jsp"/>
+    </definition>
 </tiles-definitions>

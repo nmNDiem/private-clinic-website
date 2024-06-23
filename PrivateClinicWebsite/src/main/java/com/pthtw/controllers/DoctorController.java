@@ -6,6 +6,7 @@ package com.pthtw.controllers;
 
 import com.pthtw.pojo.Doctor;
 import com.pthtw.services.DoctorService;
+import com.pthtw.services.SpecialityService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
     
+    @Autowired
+    private SpecialityService specService;
+    
     @GetMapping(value = "/doctor")
     public String list(Model model) { 
         model.addAttribute("doctors", new Doctor());
@@ -40,6 +44,7 @@ public class DoctorController {
     @GetMapping(value = "/addDoctor")
     public String createAddView(Model model) {
         model.addAttribute("doctor", new Doctor());
+        model.addAttribute("specialities", this.specService.getSpecialities());
         return "addDoctor";
     }
     
@@ -58,13 +63,14 @@ public class DoctorController {
     
     @GetMapping(value = "/updateDoctor/{doctorId}")
     public String update(Model model, @PathVariable(value = "doctorId") int id) {
-        model.addAttribute("doctor", this.doctorService.getDoctorById(id));    
+        model.addAttribute("doctor", this.doctorService.getDoctorById(id)); 
+        model.addAttribute("specialities", this.specService.getSpecialities());
         return "addDoctor";
     }
     
     @DeleteMapping("/deleteDoctor/{doctorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteDoctor(Model model, @PathVariable(value = "doctorId") int id) {    
+    public void deleteDoctor(Model model, @PathVariable(value = "doctorId") int id) {  
         this.doctorService.deleteDoctor(id);    
     } 
     

@@ -23,14 +23,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author admin
+ * @author Linh
  */
 @Entity
 @Table(name = "doctor")
@@ -53,28 +55,28 @@ public class Doctor implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{doctor.name.nullErr}")
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{doctor.name.nullErr}")
     @Size(min = 1, max = 20)
     @Column(name = "gender")
     private String gender;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{doctor.name.nullErr}")
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{doctor.name.nullErr}")
     @Size(min = 1, max = 45)
     @Column(name = "phone_number")
     private String phoneNumber;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{doctor.name.nullErr}")
     @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
@@ -91,6 +93,9 @@ public class Doctor implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne
     private User userId;
+    
+    @Transient
+    private MultipartFile file;
 
     public Doctor() {
     }
@@ -221,6 +226,20 @@ public class Doctor implements Serializable {
     @Override
     public String toString() {
         return "com.pthtw.pojo.Doctor[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }
