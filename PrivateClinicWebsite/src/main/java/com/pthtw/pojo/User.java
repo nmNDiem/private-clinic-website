@@ -15,11 +15,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -33,8 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
-    @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
+    @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,20 +55,12 @@ public class User implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "user_role")
     private String userRole;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "avatar")
-    private String avatar;
     @OneToOne(mappedBy = "userId")
     private Doctor doctor;
     @OneToOne(mappedBy = "userId")
     private Patient patient;
     @OneToOne(mappedBy = "userId")
     private Nurse nurse;
-    
-    @Transient
-    private MultipartFile file;
 
     public User() {
     }
@@ -80,12 +69,11 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password, String userRole, String avatar) {
+    public User(Integer id, String username, String password, String userRole) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.userRole = userRole;
-        this.avatar = avatar;
     }
 
     public Integer getId() {
@@ -118,14 +106,6 @@ public class User implements Serializable {
 
     public void setUserRole(String userRole) {
         this.userRole = userRole;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public Doctor getDoctor() {
@@ -175,20 +155,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.pthtw.pojo.User[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
     }
     
 }

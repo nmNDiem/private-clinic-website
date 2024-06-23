@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; lang="vi">
-        <meta charset="ISO-8859-1">
+        <meta charset="UTF-8">
         <title>
             <tiles:insertAttribute name="title"/>
         </title>

@@ -35,12 +35,12 @@ public class ApiUserController {
     
     @PostMapping(path = "/users/", consumes = {
         MediaType.APPLICATION_JSON_VALUE,
-        MediaType.MULTIPART_FORM_DATA_VALUE
+//        MediaType.MULTIPART_FORM_DATA_VALUE
     })
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
             @RequestParam Map<String, String> params, 
-            @RequestPart MultipartFile[] file,
+//            @RequestPart MultipartFile[] file,
             @DateTimeFormat(pattern = "dd/MM/yyyy") Date date) {
         User u = new User();
         u.setUsername(params.get("username"));
@@ -50,9 +50,9 @@ public class ApiUserController {
         
         u.setUserRole("ROLE_PATIENT");
         
-        if (file.length > 0) {
-            u.setFile(file[0]);
-        }
+//        if (file.length > 0) {
+//            u.setFile(file[0]);
+//        }
         
         this.userService.addUser(u);
     }

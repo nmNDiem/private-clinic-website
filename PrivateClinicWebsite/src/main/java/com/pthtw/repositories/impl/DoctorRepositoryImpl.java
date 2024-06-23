@@ -79,6 +79,14 @@ public class DoctorRepositoryImpl implements DoctorRepository{
         }
         return listAll;
     }
+
+    @Override
+    public List<Doctor> getDoctorsBySpecId(int specId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Doctor.findBySpecId");
+        q.setParameter("specialityId", specId);
+        return q.getResultList();
+    }
     
     
     

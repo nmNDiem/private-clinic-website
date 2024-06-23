@@ -20,6 +20,7 @@ public class DoctorServiceImpl implements DoctorService{
     
     @Autowired
     private DoctorRepository docRepo;
+    
     @Override
     public List<Doctor> getList() {
         return this.docRepo.getList();
@@ -43,6 +44,11 @@ public class DoctorServiceImpl implements DoctorService{
     @Override
     public List<Doctor> find(String kw) {
         return this.docRepo.find(kw);
+    }
+
+    @Override
+    public List<Doctor> getDoctorsBySpecId(int specId) {
+        return this.docRepo.getDoctorsBySpecId(specId);
     }
     
 }

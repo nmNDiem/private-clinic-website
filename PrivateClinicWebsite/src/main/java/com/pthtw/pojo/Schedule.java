@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s"),
     @NamedQuery(name = "Schedule.findById", query = "SELECT s FROM Schedule s WHERE s.id = :id"),
-    @NamedQuery(name = "Schedule.findByUserId", query = "SELECT s FROM Schedule s WHERE s.userId = :userId"),
     @NamedQuery(name = "Schedule.findByWorkDate", query = "SELECT s FROM Schedule s WHERE s.workDate = :workDate"),
     @NamedQuery(name = "Schedule.findByShift", query = "SELECT s FROM Schedule s WHERE s.shift = :shift"),
     @NamedQuery(name = "Schedule.findByNote", query = "SELECT s FROM Schedule s WHERE s.note = :note")})
@@ -47,10 +46,6 @@ public class Schedule implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "user_id")
-    private int userId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "work_date")
@@ -76,9 +71,8 @@ public class Schedule implements Serializable {
         this.id = id;
     }
 
-    public Schedule(Integer id, int userId, Date workDate, String shift) {
+    public Schedule(Integer id, Date workDate, String shift) {
         this.id = id;
-        this.userId = userId;
         this.workDate = workDate;
         this.shift = shift;
     }
@@ -89,14 +83,6 @@ public class Schedule implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public Date getWorkDate() {
