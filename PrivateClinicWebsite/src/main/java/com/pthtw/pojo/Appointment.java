@@ -55,7 +55,7 @@ public class Appointment implements Serializable {
     @Column(name = "reason")
     private String reason;
     @Column(name = "appointment_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date appointmentDate;
     @Size(max = 45)
     @Column(name = "status")

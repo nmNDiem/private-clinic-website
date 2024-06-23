@@ -5,6 +5,7 @@
 package com.pthtw.repositories;
 
 import com.pthtw.pojo.Appointment;
+import java.util.List;
 
 /**
  *
@@ -12,4 +13,6 @@ import com.pthtw.pojo.Appointment;
  */
 public interface AppointmentRepository {
     void addAppointment(Appointment appointment);
+    List<Appointment> getList();
+    Appointment getAppointmentById(int id);
 }
