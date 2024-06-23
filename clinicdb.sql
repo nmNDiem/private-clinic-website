@@ -27,7 +27,7 @@ CREATE TABLE `appointment` (
   `patient_id` int DEFAULT NULL,
   `doctor_id` int DEFAULT NULL,
   `reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `appointment_date` datetime DEFAULT NULL,
+  `appointment_date` date DEFAULT NULL,
   `status` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `confirm_time` datetime DEFAULT NULL,
   `email_sent` tinyint DEFAULT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE `doctor` (
   KEY `fk_user_id_idx` (`user_id`),
   CONSTRAINT `fk_doctor_speciality` FOREIGN KEY (`speciality_id`) REFERENCES `speciality` (`id`),
   CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `doctor` (
 
 LOCK TABLES `doctor` WRITE;
 /*!40000 ALTER TABLE `doctor` DISABLE KEYS */;
-INSERT INTO `doctor` VALUES (4,3,'Nguyễn Thanh Thái','Nam','1983-05-20','0926781294','thanhthai@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719102476/male-doctor-avatar_ycecow.jpg'),(8,4,'Tran Minh Ngoc','Nu','1995-12-30','0354218642','minhngoc@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719102926/female-doctor-avatar_bo2gcm.jpg'),(9,6,'Le Hoang Phuong','Nam','1990-08-10','0354218642','hoangphuong@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719102476/male-doctor-avatar_ycecow.jpg'),(10,1,'Nguyen Van An','Nam','1984-01-06','0941318529','vanan@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719110338/ga6kmeuf6tvkcsgscplh.jpg');
+INSERT INTO `doctor` VALUES (4,3,'Nguyễn Thanh Thái','Nam','1983-05-20','0926781294','thanhthai@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719102476/male-doctor-avatar_ycecow.jpg'),(8,4,'Tran Minh Ngoc','Nu','1995-12-30','0354218642','minhngoc@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719102926/female-doctor-avatar_bo2gcm.jpg'),(11,7,'Vu Ngoc Anh','Nu','1985-09-03','0352315529','ngocanh@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719122202/phgiokxdk508xcnwlr17.jpg');
 /*!40000 ALTER TABLE `doctor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,4 +465,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-23 12:12:02
+-- Dump completed on 2024-06-23 16:13:43

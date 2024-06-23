@@ -6,11 +6,13 @@ package com.pthtw.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.pthtw.formatters.SpecialityFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -50,11 +52,9 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 
         return r;
     }*/
-
     public MessageSource messageSource() {
         ResourceBundleMessageSource m = new ResourceBundleMessageSource();
         m.setBasename("messages");
-
         return m;
     }
 
@@ -62,7 +62,6 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public LocalValidatorFactoryBean validator() {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
-
         return bean;
     }
 
@@ -70,17 +69,32 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public Validator getValidator() {
         return validator();
     }
-    
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/resource/js/");
+        registry.addResourceHandler("/image/**").addResourceLocations("/resource/image/");
     }
-    
+
     @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         resolver.setDefaultEncoding("UTF-8");
-        
         return resolver;
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new SpecialityFormatter());
+    }
+
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", "dzktw4gfy",
+            "api_key", "543132468393457",
+            "api_secret", "eTCatouKCb1rrqp8Lr5dQVTsUVg",
+            "secure", true));
+        return cloudinary;
     }
 }

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author admin
+ * @author Linh
  */
 @Entity
 @Table(name = "appointment")
@@ -37,10 +37,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Appointment.findAll", query = "SELECT a FROM Appointment a"),
     @NamedQuery(name = "Appointment.findById", query = "SELECT a FROM Appointment a WHERE a.id = :id"),
-    @NamedQuery(name = "Appointment.findByAppointmentTime", query = "SELECT a FROM Appointment a WHERE a.appointmentTime = :appointmentTime"),
+    @NamedQuery(name = "Appointment.findByAppointmentDate", query = "SELECT a FROM Appointment a WHERE a.appointmentDate = :appointmentDate"),
     @NamedQuery(name = "Appointment.findByStatus", query = "SELECT a FROM Appointment a WHERE a.status = :status"),
     @NamedQuery(name = "Appointment.findByConfirmTime", query = "SELECT a FROM Appointment a WHERE a.confirmTime = :confirmTime"),
-    @NamedQuery(name = "Appointment.findByEmailSent", query = "SELECT a FROM Appointment a WHERE a.emailSent = :emailSent")})
+    @NamedQuery(name = "Appointment.findByEmailSent", query = "SELECT a FROM Appointment a WHERE a.emailSent = :emailSent"),
+    @NamedQuery(name = "Appointment.findByCreatedTime", query = "SELECT a FROM Appointment a WHERE a.createdTime = :createdTime")})
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,9 +54,9 @@ public class Appointment implements Serializable {
     @Size(max = 65535)
     @Column(name = "reason")
     private String reason;
-    @Column(name = "appointment_time")
+    @Column(name = "appointment_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date appointmentTime;
+    private Date appointmentDate;
     @Size(max = 45)
     @Column(name = "status")
     private String status;
@@ -64,6 +65,9 @@ public class Appointment implements Serializable {
     private Date confirmTime;
     @Column(name = "email_sent")
     private Short emailSent;
+    @Column(name = "created_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdTime;
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     @ManyToOne
     private Doctor doctorId;
@@ -98,12 +102,12 @@ public class Appointment implements Serializable {
         this.reason = reason;
     }
 
-    public Date getAppointmentTime() {
-        return appointmentTime;
+    public Date getAppointmentDate() {
+        return appointmentDate;
     }
 
-    public void setAppointmentTime(Date appointmentTime) {
-        this.appointmentTime = appointmentTime;
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
     public String getStatus() {
@@ -128,6 +132,14 @@ public class Appointment implements Serializable {
 
     public void setEmailSent(Short emailSent) {
         this.emailSent = emailSent;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 
     public Doctor getDoctorId() {

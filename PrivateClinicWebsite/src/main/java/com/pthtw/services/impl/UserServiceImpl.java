@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
                 u.getUsername(), u.getPassword(), authorities);
     }
 
-    @Override
+    /*@Override
     public void addUser(User user) {
         if (!user.getFile().isEmpty()) {
             try {
@@ -69,6 +69,6 @@ public class UserServiceImpl implements UserService {
         }
         
         this.userRepo.addUser(user);
-    }
+    }*/
 
 }

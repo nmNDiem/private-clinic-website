@@ -4,7 +4,6 @@
  */
 package com.pthtw.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author admin
+ * @author Linh
  */
 @Entity
 @Table(name = "speciality")
@@ -56,7 +55,6 @@ public class Speciality implements Serializable {
     @Column(name = "image")
     private String image;
     @OneToMany(mappedBy = "specialityId")
-    @JsonIgnore
     private Set<Doctor> doctorSet;
 
     public Speciality() {
