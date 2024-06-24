@@ -49,7 +49,7 @@ public class DoctorController {
     }
     
     @PostMapping(value = "/addDoctor")
-    public String add(@ModelAttribute(value = "doctor") @Valid Doctor d, BindingResult rs, Model model) {
+    public String add(@ModelAttribute(value = "doctor") @Valid Doctor d, BindingResult rs) {
         if (!rs.hasErrors()) {
             try {   
                 this.doctorService.addOrUpdate(d);

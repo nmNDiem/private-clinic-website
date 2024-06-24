@@ -4,7 +4,7 @@
  */
 package com.pthtw.formatters;
 
-import com.pthtw.pojo.Speciality;
+import com.pthtw.pojo.Category;
 import java.text.ParseException;
 import java.util.Locale;
 import org.springframework.format.Formatter;
@@ -13,18 +13,18 @@ import org.springframework.format.Formatter;
  *
  * @author Linh
  */
-public class SpecialityFormatter implements Formatter<Speciality> {
+public class CategoryFormatter implements Formatter<Category>{
 
     @Override
-    public String print(Speciality spec, Locale locale) {
-        return String.valueOf(spec.getId());
+    public String print(Category cate, Locale locale) {
+        return String.valueOf(cate.getId());
     }
 
     @Override
-    public Speciality parse(String id, Locale locale) throws ParseException {
-        Speciality s = new Speciality();
-        s.setId(Integer.parseInt(id));  
-        return s;
+    public Category parse(String id, Locale locale) throws ParseException {
+        Category c = new Category();
+        c.setId(Integer.parseInt(id));
+        return c;
     }
     
 }

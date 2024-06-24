@@ -26,6 +26,7 @@
         <put-attribute name="title" value="Tìm kiếm"/>
         <put-attribute name="content" value="/WEB-INF/pages/doctor.jsp"/>
     </definition>
+    
     <definition name="nurse" extends="baseLayout">
         <put-attribute name="title" value="Danh sách y tá"/>
         <put-attribute name="content" value="/WEB-INF/pages/nurse.jsp"/>
@@ -33,5 +34,18 @@
     <definition name="addNurse" extends="baseLayout">
         <put-attribute name="title" value="Thêm y tá"/>
         <put-attribute name="content" value="/WEB-INF/pages/addNurse.jsp"/>
+    </definition>
+    <definition name="findNurse" extends="baseLayout">
+        <put-attribute name="title" value="Tìm kiếm"/>
+        <put-attribute name="content" value="/WEB-INF/pages/nurse.jsp"/>
+    </definition>
+    
+    <definition name="medicine" extends="baseLayout">
+        <put-attribute name="title" value="Danh sách thuốc"/>
+        <put-attribute name="content" value="/WEB-INF/pages/medicine.jsp"/>
+    </definition>
+    <definition name="addMedicine" extends="baseLayout">
+        <put-attribute name="title" value="Thêm thuốc"/>
+        <put-attribute name="content" value="/WEB-INF/pages/addMedicine.jsp"/>
     </definition>
 </tiles-definitions>

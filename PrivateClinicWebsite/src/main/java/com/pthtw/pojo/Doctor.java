@@ -55,29 +55,29 @@ public class Doctor implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull(message = "{doctor.name.nullErr}")
-    @Size(min = 1, max = 45)
+    @NotNull
+    @Size(min = 1, max = 45, message = "{doctor.name.nullErr}")
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @NotNull(message = "{doctor.name.nullErr}")
-    @Size(min = 1, max = 20)
+    @NotNull
+    @Size(min = 1, max = 20, message = "{doctor.gender.nullErr}")
     @Column(name = "gender")
     private String gender;
     @Basic(optional = false)
-    @NotNull(message = "{doctor.name.nullErr}")
+    @NotNull(message = "{doctor.birthday.nullErr}")
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @Basic(optional = false)
-    @NotNull(message = "{doctor.name.nullErr}")
-    @Size(min = 1, max = 45)
+    @NotNull
+    @Size(min = 1, max = 45, message = "{doctor.phoneNumber.nullErr}")
     @Column(name = "phone_number")
     private String phoneNumber;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull(message = "{doctor.name.nullErr}")
-    @Size(min = 1, max = 45)
+    @NotNull
+    @Size(min = 1, max = 45, message = "{doctor.email.nullErr}")
     @Column(name = "email")
     private String email;
     @Size(max = 100)

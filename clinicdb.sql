@@ -33,10 +33,10 @@ CREATE TABLE `appointment` (
   `email_sent` tinyint DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_appointment_patient_idx` (`patient_id`),
   KEY `fk_appointment_doctor_idx` (`doctor_id`),
+  KEY `fk_appointment_patient_idx` (`patient_id`),
   CONSTRAINT `fk_appointment_doctor` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`),
-  CONSTRAINT `fk_appointment_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
+  CONSTRAINT `fk_appointment_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -127,7 +127,7 @@ CREATE TABLE `medicine` (
   PRIMARY KEY (`id`),
   KEY `fk_medicine_category_idx` (`category_id`),
   CONSTRAINT `fk_medicine_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,6 +136,7 @@ CREATE TABLE `medicine` (
 
 LOCK TABLES `medicine` WRITE;
 /*!40000 ALTER TABLE `medicine` DISABLE KEYS */;
+INSERT INTO `medicine` VALUES (1,'Ardineclav','Thuốc ArdineClav 500/125 (viên) gồm thành phần Amoxicillin và Acid clavulanic được chỉ định điều trị nhiễm khuẩn hô hấp, da - mô mềm, sinh dục - tiết niệu','gói',12000,11838,1),(2,'Nizastric','Thuốc Nizastric là thuốc điều trị bệnh đường tiêu hóa. Khi sử dụng thuốc Nizastric cần tham khảo tư vấn bác sĩ về tình trạng bệnh và khả năng tương thích với thuốc Nizastric','viên',2499,11831,7),(4,'Amedolfen','Amedolfen có thành phần chính là Flurbiprofen, thuộc nhóm thuốc hạ sốt, giảm đau, chống viêm không steroid (NSAIDs). Thuốc được bào chế dưới dạng viên nén bao phim được sử dụng để điều trị giảm đau, giảm viêm','Viên',4893,44655,3),(5,'Diclofenac','Diclofenac hay diclofenac sodium thường được điều trị viêm khớp mãn tính với tác dụng chính là giảm sưng, giảm viêm. ','Viên',1000,44655,2);
 /*!40000 ALTER TABLE `medicine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +179,7 @@ DROP TABLE IF EXISTS `nurse`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nurse` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `gender` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `birthday` date NOT NULL,
@@ -190,7 +191,7 @@ CREATE TABLE `nurse` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_id_idx` (`user_id`),
   CONSTRAINT `fk_user_nurse` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +200,7 @@ CREATE TABLE `nurse` (
 
 LOCK TABLES `nurse` WRITE;
 /*!40000 ALTER TABLE `nurse` DISABLE KEYS */;
-INSERT INTO `nurse` VALUES (1,'Trần Ngọc Trang','Nữ','1993-03-05','0982716592','ngoctrang@gmail.com',5,NULL);
+INSERT INTO `nurse` VALUES (1,'Trần Ngọc Trang','Nữ','1993-03-05','0982716592','ngoctrang@gmail.com',5,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719102926/female-doctor-avatar_bo2gcm.jpg'),(3,'Nguyen Le Xuan','Nu','1998-06-18','0982355216','lexuan@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719192766/vexj2ebf5o2bzuwi4egm.jpg'),(4,'Dang Hung Dung','Nam','1995-07-26','0912446275','hungdung@gmail.com',NULL,'https://res.cloudinary.com/dzktw4gfy/image/upload/v1719192851/msmy7taqghwj1rbuyufa.jpg');
 /*!40000 ALTER TABLE `nurse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +212,7 @@ DROP TABLE IF EXISTS `patient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `patient` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `gender` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `birthday` date NOT NULL,
@@ -223,7 +224,7 @@ CREATE TABLE `patient` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_patient_idx` (`user_id`),
   CONSTRAINT `fk_user_patient` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,7 +310,7 @@ CREATE TABLE `receipt` (
   KEY `fk_receipt_payment_method_idx` (`payment_method_id`),
   KEY `fk_receipt_nurse_idx` (`nurse_id`),
   CONSTRAINT `fk_receipt_appointment` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
-  CONSTRAINT `fk_receipt_nurse` FOREIGN KEY (`nurse_id`) REFERENCES `nurse` (`id`),
+  CONSTRAINT `fk_receipt_nurse` FOREIGN KEY (`nurse_id`) REFERENCES `nurse` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_receipt_payment_method` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -390,7 +391,7 @@ CREATE TABLE `schedule_nurse` (
   PRIMARY KEY (`id`),
   KEY `fk_schedule_idx` (`schedule_id`),
   KEY `fk_nurse_idx` (`nurse_id`),
-  CONSTRAINT `fk_nurse` FOREIGN KEY (`nurse_id`) REFERENCES `nurse` (`id`),
+  CONSTRAINT `fk_nurse` FOREIGN KEY (`nurse_id`) REFERENCES `nurse` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_schedule_nurse` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -465,4 +466,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-23 16:13:43
+-- Dump completed on 2024-06-24 23:48:16
