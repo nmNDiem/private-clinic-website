@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
@@ -58,6 +59,7 @@ public class Appointment implements Serializable {
     private String reason;
     @Column(name = "appointment_date")
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date appointmentDate;
     @Size(max = 45)
     @Column(name = "status")
@@ -71,11 +73,11 @@ public class Appointment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
 //    @JsonIgnore
     private Doctor doctorId;
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Patient patientId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentId")
     @JsonIgnore

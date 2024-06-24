@@ -5,6 +5,7 @@
 package com.pthtw.services.impl;
 
 import com.pthtw.pojo.Patient;
+import com.pthtw.repositories.PatientRepository;
 import com.pthtw.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PatientServiceImpl implements PatientService {
     @Autowired
-    private PatientService patientService;
+    private PatientRepository patientRepo;
     
     @Override
     public Patient getPatientById(int id) {
-        return this.patientService.getPatientById(id);
+        return this.patientRepo.getPatientById(id);
     }
     
 }
