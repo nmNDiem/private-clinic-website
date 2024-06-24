@@ -99,6 +99,7 @@ public class Doctor implements Serializable {
     private User userId;
     
     @Transient
+//    @XmlTransient
     private MultipartFile file;
 
     public Doctor() {
@@ -235,6 +236,7 @@ public class Doctor implements Serializable {
     /**
      * @return the file
      */
+    @XmlTransient
     public MultipartFile getFile() {
         return file;
     }

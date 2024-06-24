@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -11,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -70,13 +72,16 @@ public class Appointment implements Serializable {
     private Date createdTime;
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     @ManyToOne
+//    @JsonIgnore
     private Doctor doctorId;
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     @ManyToOne
     private Patient patientId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentId")
+    @JsonIgnore
     private Set<Prescription> prescriptionSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentId")
+    @JsonIgnore
     private Set<Receipt> receiptSet;
 
     public Appointment() {

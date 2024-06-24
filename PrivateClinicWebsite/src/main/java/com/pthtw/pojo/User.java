@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -56,10 +57,13 @@ public class User implements Serializable {
     @Column(name = "user_role")
     private String userRole;
     @OneToOne(mappedBy = "userId")
+    @JsonIgnore
     private Doctor doctor;
     @OneToOne(mappedBy = "userId")
+    @JsonIgnore
     private Patient patient;
     @OneToOne(mappedBy = "userId")
+    @JsonIgnore
     private Nurse nurse;
 
     public User() {
