@@ -7,7 +7,6 @@ package com.pthtw.repositories.impl;
 import com.pthtw.pojo.Patient;
 import com.pthtw.repositories.PatientRepository;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;

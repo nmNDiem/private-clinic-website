@@ -10,10 +10,12 @@ import com.pthtw.pojo.Patient;
 import com.pthtw.services.AppointmentService;
 import com.pthtw.services.DoctorService;
 import com.pthtw.services.PatientService;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ParseException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,43 +44,18 @@ public class ApiAppointmentController {
     @Autowired
     private PatientService patientService;
 
-//    @PostMapping(path = "/appointments/", consumes = {MediaType.APPLICATION_JSON_VALUE})
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void create(
-//            @RequestParam Map<String, String> params,
-//            @DateTimeFormat(pattern = "dd/MM/yyyy") Date appointmentDate,
-//            @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss") Date confirmTime) {
-//        
-//        int doctorId = Integer.parseInt(params.get("doctorId"));
-//        Doctor doctor = docService.getDoctorById(doctorId);
-//        
-//        int patientId = Integer.parseInt(params.get("patientId"));
-//        Patient patient = patientService.getPatientById(patientId);
-//                
-//        Appointment a = new Appointment();
-//        a.setPatientId(patient);
-//        a.setDoctorId(doctor);
-//        a.setReason(params.get("reason"));
-//        a.setAppointmentDate(appointmentDate);
-//        a.setStatus("Chờ xác nhận");
-//        a.setConfirmTime(confirmTime);
-//        a.setEmailSent((short)0);
-//        
-//        this.appointmentService.addAppointment(a);
-//    }
-//    
     @GetMapping("/appointments/")
     @CrossOrigin
     public ResponseEntity<List<Appointment>> list() {
         return new ResponseEntity<>(this.appointmentService.getList(), HttpStatus.OK);
     }
-    
+
     @GetMapping(path = "/appointments/{appointmentId}/", produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
     public ResponseEntity<Appointment> retrieve(@PathVariable(value = "appointmentId") int id) {
         return new ResponseEntity<>(this.appointmentService.getAppointmentById(id), HttpStatus.OK);
     }
-    
+
     @PostMapping(path = "/appointments/", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> create(
@@ -110,20 +86,24 @@ public class ApiAppointmentController {
                 return new ResponseEntity<>("Patient not found", HttpStatus.NOT_FOUND);
             }
 
-            // Tạo và lưu cuộc hẹn
+            // Chuyển đổi appointmentDate từ chuỗi sang Date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date parsedAppointmentDate = dateFormat.parse(params.get("appointmentDate"));
+            
             Appointment a = new Appointment();
             a.setPatientId(patient);
             a.setDoctorId(doctor);
             a.setReason(params.get("reason"));
-            a.setAppointmentDate(appointmentDate);
+            a.setAppointmentDate(parsedAppointmentDate);
             a.setStatus("Chờ xác nhận");
-            a.setConfirmTime(confirmTime);
             a.setEmailSent((short) 0);
 
             this.appointmentService.addAppointment(a);
             return new ResponseEntity<>("Appointment created successfully", HttpStatus.CREATED);
         } catch (NumberFormatException e) {
             return new ResponseEntity<>("Invalid doctorId or patientId format", HttpStatus.BAD_REQUEST);
+        } catch (ParseException e) {
+            return new ResponseEntity<>("Invalid appointmentDate format", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>("An error occurred while creating the appointment", HttpStatus.INTERNAL_SERVER_ERROR);
         }
