@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -79,11 +80,13 @@ public class Nurse implements Serializable {
     @Column(name = "avatar")
     private String avatar;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nurseId")
+    @JsonIgnore
     private Set<ScheduleNurse> scheduleNurseSet;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne
     private User userId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nurseId")
+    @JsonIgnore
     private Set<Receipt> receiptSet;
 
     public Nurse() {

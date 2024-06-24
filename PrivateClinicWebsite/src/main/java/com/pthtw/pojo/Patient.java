@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -78,6 +79,7 @@ public class Patient implements Serializable {
     @Column(name = "avatar")
     private String avatar;
     @OneToMany(mappedBy = "patientId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne
@@ -164,6 +166,7 @@ public class Patient implements Serializable {
         this.appointmentSet = appointmentSet;
     }
 
+    @XmlTransient
     public User getUserId() {
         return userId;
     }
