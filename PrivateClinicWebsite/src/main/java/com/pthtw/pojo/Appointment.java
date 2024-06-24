@@ -7,6 +7,7 @@ package com.pthtw.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -70,8 +71,9 @@ public class Appointment implements Serializable {
     @Column(name = "email_sent")
     private Short emailSent;
     @Column(name = "created_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdTime;
+//    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime createdTime;
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
 //    @JsonIgnore
@@ -141,11 +143,11 @@ public class Appointment implements Serializable {
         this.emailSent = emailSent;
     }
 
-    public Date getCreatedTime() {
+    public LocalDateTime getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
+    public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
     }
 

@@ -11,6 +11,7 @@ import com.pthtw.services.AppointmentService;
 import com.pthtw.services.DoctorService;
 import com.pthtw.services.PatientService;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -60,8 +61,7 @@ public class ApiAppointmentController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> create(
             @RequestBody Map<String, String> params,
-            @DateTimeFormat(pattern = "dd/MM/yyyy") Date appointmentDate,
-            @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss") Date confirmTime) {
+            @DateTimeFormat(pattern = "dd/MM/yyyy") Date appointmentDate) {
 
         try {
             // Kiểm tra và chuyển đổi doctorId
@@ -89,7 +89,7 @@ public class ApiAppointmentController {
             // Chuyển đổi appointmentDate từ chuỗi sang Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date parsedAppointmentDate = dateFormat.parse(params.get("appointmentDate"));
-            
+
             Appointment a = new Appointment();
             a.setPatientId(patient);
             a.setDoctorId(doctor);
@@ -97,6 +97,7 @@ public class ApiAppointmentController {
             a.setAppointmentDate(parsedAppointmentDate);
             a.setStatus("Chờ xác nhận");
             a.setEmailSent((short) 0);
+            a.setCreatedTime(LocalDateTime.now());
 
             this.appointmentService.addAppointment(a);
             return new ResponseEntity<>("Appointment created successfully", HttpStatus.CREATED);
