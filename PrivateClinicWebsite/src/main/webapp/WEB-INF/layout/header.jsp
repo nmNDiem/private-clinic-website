@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/nurse"/>">Quản lý y tá</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/medicine"/>">Quản lý thuốc</a>
+                </li>
             </ul>
         </div>
     </div>

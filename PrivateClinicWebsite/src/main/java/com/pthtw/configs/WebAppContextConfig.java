@@ -6,6 +6,8 @@ package com.pthtw.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.pthtw.formatters.CategoryFormatter;
+import com.pthtw.formatters.DateFormatter;
 import com.pthtw.formatters.SpecialityFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -86,6 +88,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new SpecialityFormatter());
+        registry.addFormatter(new DateFormatter());
+        registry.addFormatter(new CategoryFormatter());
     }
 
     @Bean
