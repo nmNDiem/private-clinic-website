@@ -17,4 +17,6 @@ public interface DoctorRepository {
     Doctor getDoctorById(int id);
     void deleteDoctor(int id);
     List<Doctor> find(String kw);
+    
+    List<Doctor> getDoctorsBySpecId(int specId);
 }

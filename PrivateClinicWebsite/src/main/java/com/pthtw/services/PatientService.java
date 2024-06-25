@@ -3,15 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.pthtw.services;
-
-import com.pthtw.pojo.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.pthtw.pojo.Patient;
 
 /**
  *
  * @author admin
  */
-public interface UserService extends UserDetailsService {
-    User getUserByUsername(String username);
-    void addUser(User user);
+public interface PatientService {
+    public Patient getPatientById(int id);
 }

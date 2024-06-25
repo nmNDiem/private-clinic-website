@@ -4,14 +4,15 @@
  */
 package com.pthtw.services;
 
-import com.pthtw.pojo.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.pthtw.pojo.Appointment;
+import java.util.List;
 
 /**
  *
  * @author admin
  */
-public interface UserService extends UserDetailsService {
-    User getUserByUsername(String username);
-    void addUser(User user);
+public interface AppointmentService {
+    void addAppointment(Appointment appointment);
+    List<Appointment> getList();
+    Appointment getAppointmentById(int id);
 }

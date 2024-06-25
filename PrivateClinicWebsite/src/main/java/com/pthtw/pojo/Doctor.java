@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -45,7 +46,8 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Doctor.findByBirthday", query = "SELECT d FROM Doctor d WHERE d.birthday = :birthday"),
     @NamedQuery(name = "Doctor.findByPhoneNumber", query = "SELECT d FROM Doctor d WHERE d.phoneNumber = :phoneNumber"),
     @NamedQuery(name = "Doctor.findByEmail", query = "SELECT d FROM Doctor d WHERE d.email = :email"),
-    @NamedQuery(name = "Doctor.findByAvatar", query = "SELECT d FROM Doctor d WHERE d.avatar = :avatar")})
+    @NamedQuery(name = "Doctor.findByAvatar", query = "SELECT d FROM Doctor d WHERE d.avatar = :avatar"),
+    @NamedQuery(name = "Doctor.findBySpecId", query = "SELECT d FROM Doctor d WHERE d.specialityId.id = :specialityId")})
 public class Doctor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -84,8 +86,10 @@ public class Doctor implements Serializable {
     @Column(name = "avatar")
     private String avatar;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctorId")
+    @JsonIgnore
     private Set<ScheduleDoctor> scheduleDoctorSet;
     @OneToMany(mappedBy = "doctorId")
+    @JsonIgnore
     private Set<Appointment> appointmentSet;
     @JoinColumn(name = "speciality_id", referencedColumnName = "id")
     @ManyToOne
@@ -95,6 +99,7 @@ public class Doctor implements Serializable {
     private User userId;
     
     @Transient
+//    @XmlTransient
     private MultipartFile file;
 
     public Doctor() {
@@ -231,6 +236,7 @@ public class Doctor implements Serializable {
     /**
      * @return the file
      */
+    @XmlTransient
     public MultipartFile getFile() {
         return file;
     }

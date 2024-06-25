@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -76,6 +77,9 @@ public class Patient implements Serializable {
     @Size(max = 100)
     @Column(name = "avatar")
     private String avatar;
+    @OneToMany(mappedBy = "patientId")
+    @JsonIgnore
+    private Set<Appointment> appointmentSet;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne
     private User userId;
@@ -151,7 +155,17 @@ public class Patient implements Serializable {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+  
+    @XmlTransient
+    public Set<Appointment> getAppointmentSet() {
+        return appointmentSet;
+    }
 
+    public void setAppointmentSet(Set<Appointment> appointmentSet) {
+        this.appointmentSet = appointmentSet;
+    }
+
+    @XmlTransient
     public User getUserId() {
         return userId;
     }

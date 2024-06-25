@@ -4,11 +4,15 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,6 +56,7 @@ public class Appointment implements Serializable {
     private String reason;
     @Column(name = "appointment_date")
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date appointmentDate;
     @Size(max = 45)
     @Column(name = "status")
@@ -62,14 +67,22 @@ public class Appointment implements Serializable {
     @Column(name = "email_sent")
     private Short emailSent;
     @Column(name = "created_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdTime;
+//    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime createdTime;
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
     private Doctor doctorId;
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Patient patientId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentId")
+    @JsonIgnore
+    private Set<Prescription> prescriptionSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentId")
+    @JsonIgnore
+    private Set<Receipt> receiptSet;
 
     public Appointment() {
     }
@@ -126,11 +139,11 @@ public class Appointment implements Serializable {
         this.emailSent = emailSent;
     }
 
-    public Date getCreatedTime() {
+    public LocalDateTime getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
+    public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
     }
 

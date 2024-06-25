@@ -5,6 +5,7 @@ import APIs, { endpoints } from "../../configs/APIs";
 const Home = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [specialities, setSpecialities] = useState(null);
+    const [doctors, setDoctors] = useState(null);
 
     const loadSpecs = async () => {
         try {
@@ -15,8 +16,21 @@ const Home = () => {
         }
     }
 
+    const loadDoctors = async () => {
+        try {
+            let res = await APIs.get(endpoints['doctors']);
+            setDoctors(res.data);
+        } catch (ex) {
+            console.error(ex);
+        }
+    }
+
     useEffect(() => {
         loadSpecs();
+    }, [])
+
+    useEffect(() => {
+        loadDoctors();
     }, [])
 
     return (
@@ -56,9 +70,9 @@ const Home = () => {
                                 <Form.Label>Chọn bác sĩ</Form.Label>
                                 <Form.Select>
                                     <option>Chọn bác sĩ</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    {doctors === null ? <Spinner animation="border" variant="secondary" /> : <>
+                                        {doctors.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+                                    </>}
                                 </Form.Select>
                             </Form.Group>
 

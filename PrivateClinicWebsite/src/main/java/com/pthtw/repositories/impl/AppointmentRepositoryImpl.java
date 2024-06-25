@@ -4,11 +4,11 @@
  */
 package com.pthtw.repositories.impl;
 
-import com.pthtw.pojo.Speciality;
-import com.pthtw.repositories.SpecialityRepository;
+import com.pthtw.pojo.Appointment;
+import com.pthtw.repositories.AppointmentRepository;
 import java.util.List;
-import javax.persistence.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -18,21 +18,27 @@ import org.springframework.stereotype.Repository;
  * @author admin
  */
 @Repository
-public class SpecialityRepositoryImpl implements SpecialityRepository {
+public class AppointmentRepositoryImpl implements AppointmentRepository {
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Override
-    public List<Speciality> getSpecialities() {
+    public void addAppointment(Appointment appointment) {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("Speciality.findAll");
+        s.save(appointment);
+    }
+
+    @Override
+    public List<Appointment> getList() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("Appointment.findAll");
         return q.getResultList();
     }
 
     @Override
-    public Speciality getSpecById(int id) {
+    public Appointment getAppointmentById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Speciality.class, id);
+        return s.get(Appointment.class, id);
     }
     
 }

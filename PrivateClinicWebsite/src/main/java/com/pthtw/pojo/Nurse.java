@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -78,12 +79,19 @@ public class Nurse implements Serializable {
     @Size(max = 100)
     @Column(name = "avatar")
     private String avatar;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nurseId")
+    @JsonIgnore
+    private Set<ScheduleNurse> scheduleNurseSet;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne
     private User userId;
-    
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nurseId")
+    @JsonIgnore
+    private Set<Receipt> receiptSet;
+  
+  @Transient
     private MultipartFile file;
+  
     public Nurse() {
     }
 

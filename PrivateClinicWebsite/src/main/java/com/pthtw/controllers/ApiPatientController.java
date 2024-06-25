@@ -4,9 +4,8 @@
  */
 package com.pthtw.controllers;
 
-import com.pthtw.pojo.Speciality;
-import com.pthtw.services.SpecialityService;
-import java.util.List;
+import com.pthtw.pojo.Patient;
+import com.pthtw.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,22 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-public class ApiSpecialityController {
+public class ApiPatientController {
     @Autowired
-    private SpecialityService specService;
+    private PatientService patientService;
     
-    @GetMapping("/specialities/")
-    @CrossOrigin
-    public ResponseEntity<List<Speciality>> list() {
-        return new ResponseEntity<>(this.specService.getSpecialities(), HttpStatus.OK);
-    }
-    
-    @GetMapping(path = "/specialities/{specialityId}/", produces = {
+    @GetMapping(path = "/patients/{patientId}/", produces = {
         MediaType.APPLICATION_JSON_VALUE
     })
     @CrossOrigin
-    public ResponseEntity<Speciality> retrieve(@PathVariable(value = "specialityId") int id) {
-        return new ResponseEntity<>(this.specService.getSpecById(id), HttpStatus.OK);
+    public ResponseEntity<Patient> retrieve(@PathVariable(value = "patientId") int id) {
+        return new ResponseEntity<>(this.patientService.getPatientById(id), HttpStatus.OK);
     }
-
 }
