@@ -2,13 +2,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./components/Commons/Header";
 import Footer from "./components/Commons/Footer";
-import Home from "./components/Appointment/Home";
 import { Container } from "react-bootstrap";
 import Register from "./components/User/Register";
 import Login from "./components/User/Login";
 import Doctor from "./components/Doctor/Doctor";
 import SpecialityDetails from "./components/Speciality/SpecialityDetails";
 import Appointment from "./components/Appointment/Appointment";
+import BookingForm from "./components/Appointment/BookingForm";
+import Home from "./components/Home/Home";
 
 const App = () => {
   return (

@@ -18,7 +18,7 @@ const Doctor = () => {
     }, [])
     return (
         <>
-            <h1>ĐỘI NGŨ BÁC SĨ</h1>
+            <h1 className="my-3 text-primary text-center">ĐỘI NGŨ BÁC SĨ</h1>
             {doctors === null ? <h2>null</h2> : <>{doctors.map(d => <h2 key={d.id}>{d.name}</h2>)}</>}
         </>
     )
