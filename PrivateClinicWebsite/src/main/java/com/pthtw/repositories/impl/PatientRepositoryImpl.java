@@ -25,5 +25,11 @@ public class PatientRepositoryImpl implements PatientRepository {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Patient.class, id);
     }
+
+    @Override
+    public void addPatient(Patient patient) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(patient);
+    }
     
 }

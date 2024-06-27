@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import APIs, { endpoints } from "../../configs/APIs";
-import { Card, Container, Row, Col, ListGroup, Button, Modal, Form, Spinner } from "react-bootstrap";
+import { Card, Container, Row, Col, ListGroup, Button, Modal, Form, Spinner, Image } from "react-bootstrap";
 import BookingForm from "../Appointment/BookingForm";
 import MySpinner from "../Commons/MySpinner";
 
@@ -39,8 +39,8 @@ const SpecialityDetails = () => {
         <Container>
             {speciality === null ? <MySpinner /> :
                 <>
-                    <h1 className="my-4 text-center">CHUYÊN KHOA {speciality.name.toUpperCase()}</h1>
-                    <Card className="mb-4">
+                    <h1 className="my-4 text-primary text-center">CHUYÊN KHOA {speciality.name.toUpperCase()}</h1>
+                    <Card className="mb-4 border-0">
                         <Row noGutters>
                             <Col md={4}>
                                 <Card.Img variant="top" src={speciality.image} alt={speciality.name} />
@@ -52,37 +52,38 @@ const SpecialityDetails = () => {
                                 </Card.Body>
                             </Col>
                         </Row>
+                        {doctors.length === 0 ? <></> :
+                            <>
+                                <h2 className="my-4 text-primary text-center">Gồm các bác sĩ</h2>
+                                <ListGroup>
+                                    {doctors.map(d =>
+                                        <Col md={3} sx={12} >
+                                            <Card className="mb-3 mx-2 transparent-card">
+                                                <Card.Img variant="top" src={d.avatar} className="rounded-circle" />
+                                                <Card.Body className="text-center">
+                                                    <Card.Title>Bác sĩ<br/>{d.name}</Card.Title>
+                                                    <Card.Text>
+                                                        Chuyên khoa {d.specialityId.name}
+                                                    </Card.Text>
+                                                    <Button variant="primary"
+                                                        onClick={() => {
+                                                            // setSelectedDoctor(doctor.id);
+                                                            setShowBookingModal(true);
+                                                        }}>
+                                                        Đặt lịch khám
+                                                    </Button>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    )}
+                                
+                                </ListGroup>
+                            </>
+                        }
                     </Card>
                 </>
             }
-            {doctors.length === 0 ? <></> :
-                <>
-                    <h2 className="my-4">Gồm các bác sĩ</h2>
-                    <ListGroup>
-                        {doctors.map(doctor => (
-                            <ListGroup.Item key={doctor.id}>
-                                <Row className="align-items-center">
-                                    <Col md={8}>
-                                        <h5>{doctor.name}</h5>
-                                        <p>{doctor.speciality}</p>
-                                    </Col>
-                                    <Col md={4} className="text-right">
-                                        <Button
-                                            variant="primary"
-                                            onClick={() => {
-                                                setSelectedDoctor(doctor.id);
-                                                setShowBookingModal(true);
-                                            }}
-                                        >
-                                            Đặt lịch khám
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </ListGroup.Item>
-                        ))}
-                    </ListGroup>
-                </>
-            }
+
 
             <Modal show={showBookingModal} onHide={() => setShowBookingModal(false)}>
                 <Modal.Header closeButton>
