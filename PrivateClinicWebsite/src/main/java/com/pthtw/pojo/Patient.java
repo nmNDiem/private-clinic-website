@@ -4,6 +4,7 @@
  */
 package com.pthtw.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
@@ -22,10 +23,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -39,7 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Patient.findById", query = "SELECT p FROM Patient p WHERE p.id = :id"),
     @NamedQuery(name = "Patient.findByName", query = "SELECT p FROM Patient p WHERE p.name = :name"),
     @NamedQuery(name = "Patient.findByGender", query = "SELECT p FROM Patient p WHERE p.gender = :gender"),
-    @NamedQuery(name = "Patient.findByBirthday", query = "SELECT p FROM Patient p WHERE p.birthday = :birthday"),
     @NamedQuery(name = "Patient.findByPhoneNumber", query = "SELECT p FROM Patient p WHERE p.phoneNumber = :phoneNumber"),
     @NamedQuery(name = "Patient.findByEmail", query = "SELECT p FROM Patient p WHERE p.email = :email"),
     @NamedQuery(name = "Patient.findByAvatar", query = "SELECT p FROM Patient p WHERE p.avatar = :avatar")})
@@ -63,11 +65,6 @@ public class Patient implements Serializable {
     private String gender;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "birthday")
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -86,6 +83,9 @@ public class Patient implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne
     private User userId;
+    
+    @Transient
+    private MultipartFile file;
 
     public Patient() {
     }
@@ -94,11 +94,10 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public Patient(Integer id, String name, String gender, Date birthday, String phoneNumber, String email) {
+    public Patient(Integer id, String name, String gender, String phoneNumber, String email) {
         this.id = id;
         this.name = name;
         this.gender = gender;
-        this.birthday = birthday;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
@@ -125,14 +124,6 @@ public class Patient implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
     }
 
     public String getPhoneNumber() {
@@ -200,6 +191,21 @@ public class Patient implements Serializable {
     @Override
     public String toString() {
         return "com.pthtw.pojo.Patient[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    @XmlTransient
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }

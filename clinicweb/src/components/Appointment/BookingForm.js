@@ -45,6 +45,12 @@ const BookingForm = () => {
     loadDoctors();
   }, [speciality])
 
+  const change = (e, field) => {
+    setAppointmentForm(current => {
+      return { ...current, [field]: e.target.value }
+    })
+  }
+
   const booking = async (e) => {
     e.preventDefault();
 
@@ -64,12 +70,6 @@ const BookingForm = () => {
     } finally {
       setLoading(false);
     }
-  }
-
-  const change = (e, field) => {
-    setAppointmentForm(current => {
-      return { ...current, [field]: e.target.value }
-    })
   }
 
   return (
@@ -121,7 +121,7 @@ const BookingForm = () => {
               </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-2" controlId="reason">
+            <Form.Group className="mb-3" controlId="reason">
               <Form.Label>Lý do khám</Form.Label>
               <Form.Control as="textarea" rows={3}
                 placeholder="Tôi cảm thấy..."
@@ -130,7 +130,7 @@ const BookingForm = () => {
             </Form.Group>
 
             <Button type="submit" variant="primary" className="d-block mx-auto" disabled={loading}>
-              {loading ? <MySpinner /> : "Đặt lịch"}
+              {loading ? <MySpinner /> : "Đặt ngay"}
             </Button>
           </Card.Body>
         </Card>

@@ -46,12 +46,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Appointment.findByCreatedTime", query = "SELECT a FROM Appointment a WHERE a.createdTime = :createdTime")})
 public class Appointment implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "shift")
-    private String shift;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +60,11 @@ public class Appointment implements Serializable {
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date appointmentDate;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "shift")
+    private String shift;
     @Size(max = 45)
     @Column(name = "status")
     private String status;
@@ -203,5 +202,5 @@ public class Appointment implements Serializable {
     public void setShift(String shift) {
         this.shift = shift;
     }
-    
+
 }

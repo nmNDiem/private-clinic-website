@@ -11,4 +11,5 @@ import com.pthtw.pojo.Patient;
  */
 public interface PatientService {
     public Patient getPatientById(int id);
+    void addPatient(Patient patient);
 }
