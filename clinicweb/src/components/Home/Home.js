@@ -10,7 +10,6 @@ const Home = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [specialities, setSpecialities] = useState(null);
     const [doctors, setDoctors] = useState(null);
-    const [showToast, setShowToast] = useState(false);
     const nav = useNavigate();
 
     const loadSpecs = async () => {
@@ -51,11 +50,11 @@ const Home = () => {
                 <Col>
                     <Row>
                         {specialities === null ? <MySpinner /> : <>
-                            {specialities.map(s => <Col key={s.id} md={3} xs={12}>
+                            {specialities.map(s => <Col key={s.id} md={4} xs={12}>
                                 <Card className="my-3 card-spec">
                                     <Card.Img className="card-image" variant="top" src={s.image} />
                                     <Card.Body>
-                                        <Card.Title className="text-center">Chuyên khoa {s.name}</Card.Title>
+                                        <Card.Title className="text-center">Chuyên khoa<br/>{s.name}</Card.Title>
                                         <Button onClick={() => { nav(`/specialities/${s.id}`) }} variant="primary" className="d-block mx-auto">Xem chi tiết</Button>
                                     </Card.Body>
                                 </Card>
