@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Form, Nav, NavDropdown, Navbar, Spinner } from "react-bootstrap";
+import { Button, Container, Form, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import APIs, { endpoints } from "../../configs/APIs";
 import { Link, useNavigate } from "react-router-dom";
+import MySpinner from "./MySpinner";
 
 const Header = () => {
     const [specialities, setSpecialities] = useState(null);
@@ -40,7 +41,7 @@ const Header = () => {
                         <Nav.Link as={Link} to="/">Trang chủ</Nav.Link>
 
                         <NavDropdown title="Chuyên khoa" id="navbarScrollingDropdown">
-                            {specialities === null ? <Spinner animation="border" variant="secondary" /> : <>
+                            {specialities === null ? <MySpinner /> : <>
                                 {specialities.map(s =>
                                     <Link key={s.id} className="nav-link" to={`/specialities/${s.id}`}>{s.name}</Link>)}
                             </>}

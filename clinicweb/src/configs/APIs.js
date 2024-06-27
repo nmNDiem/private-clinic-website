@@ -8,7 +8,7 @@ export const endpoints = {
     'doctors-in-speciality': (specialityId) => `/api/specialities/${specialityId}/doctors/`,
     'doctors': '/api/doctors/',
     'appointments': '/api/appointments/',
-    'register': '/api/users/',
+    'register': '/api/users/'
 }
 
 export default axios.create({
