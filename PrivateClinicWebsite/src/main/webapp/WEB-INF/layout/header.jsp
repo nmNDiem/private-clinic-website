@@ -26,6 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/medicine"/>">Quản lý thuốc</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/arrangeSchedule"/>">Sắp lịch trực</a>
+                </li>
             </ul>
         </div>
     </div>
