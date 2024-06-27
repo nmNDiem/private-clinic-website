@@ -7,14 +7,12 @@ package com.pthtw.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -47,6 +46,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Appointment.findByCreatedTime", query = "SELECT a FROM Appointment a WHERE a.createdTime = :createdTime")})
 public class Appointment implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "shift")
+    private String shift;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,19 +71,19 @@ public class Appointment implements Serializable {
     private String status;
     @Column(name = "confirm_time")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date confirmTime;
     @Column(name = "email_sent")
     private Short emailSent;
     @Column(name = "created_time")
-//    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime createdTime;
+    private Date createdTime;
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonIgnore
+    @ManyToOne
     private Doctor doctorId;
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Patient patientId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentId")
     @JsonIgnore
@@ -142,11 +147,11 @@ public class Appointment implements Serializable {
         this.emailSent = emailSent;
     }
 
-    public LocalDateTime getCreatedTime() {
+    public Date getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(LocalDateTime createdTime) {
+    public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
     }
 
@@ -189,6 +194,14 @@ public class Appointment implements Serializable {
     @Override
     public String toString() {
         return "com.pthtw.pojo.Appointment[ id=" + id + " ]";
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
     }
     
 }

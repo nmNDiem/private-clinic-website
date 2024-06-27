@@ -4,12 +4,9 @@
  */
 package com.pthtw.formatters;
 
-import com.pthtw.pojo.Doctor;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import org.springframework.format.Formatter;

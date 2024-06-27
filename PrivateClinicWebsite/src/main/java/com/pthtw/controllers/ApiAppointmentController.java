@@ -58,6 +58,7 @@ public class ApiAppointmentController {
     }
 
     @PostMapping(path = "/appointments/", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> create(
             @RequestBody Map<String, String> params,
@@ -95,9 +96,10 @@ public class ApiAppointmentController {
             a.setDoctorId(doctor);
             a.setReason(params.get("reason"));
             a.setAppointmentDate(parsedAppointmentDate);
+            a.setShift(params.get("shift"));
             a.setStatus("Chờ xác nhận");
             a.setEmailSent((short) 0);
-            a.setCreatedTime(LocalDateTime.now());
+            a.setCreatedTime(new Date());
 
             this.appointmentService.addAppointment(a);
             return new ResponseEntity<>("Appointment created successfully", HttpStatus.CREATED);
@@ -106,6 +108,7 @@ public class ApiAppointmentController {
         } catch (ParseException e) {
             return new ResponseEntity<>("Invalid appointmentDate format", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>("An error occurred while creating the appointment", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
