@@ -28,7 +28,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = {
     "com.pthtw.controllers",
     "com.pthtw.repositories",
-    "com.pthtw.services"
+    "com.pthtw.services",
+    "com.pthtw.components"
 })
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -60,9 +61,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         
         http.exceptionHandling().accessDeniedPage("/login?accessDenied");
         
-        //phân quyền
-//        http.authorizeRequests().antMatchers("/").permitAll()
-//                .antMatchers("/**/add").access("hasRole('ROLE_ADMIN')");
+//        phân quyền
+        http.authorizeRequests().antMatchers("/").permitAll()
+                .antMatchers("/**/add").access("hasRole('ROLE_ADMIN')");
         
         http.csrf().disable();
     }

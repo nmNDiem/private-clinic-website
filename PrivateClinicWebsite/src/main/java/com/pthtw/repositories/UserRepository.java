@@ -11,6 +11,10 @@ import com.pthtw.pojo.User;
  * @author admin
  */
 public interface UserRepository {
+
     User getUserByUsername(String username);
+
     void addUser(User user);
+
+    public boolean authUser(String username, String password);
 }

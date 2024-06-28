@@ -36,7 +36,8 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = {
     "com.pthtw.controllers",
     "com.pthtw.repositories",
-    "com.pthtw.services"
+    "com.pthtw.services",
+    "com.pthtw.components"
 })
 public class WebAppContextConfig implements WebMvcConfigurer {
 
