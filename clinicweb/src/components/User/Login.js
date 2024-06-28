@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import APIs, { endpoints } from "../../configs/APIs";
+import APIs, { authApi, endpoints } from "../../configs/APIs";
 import cookie from "react-cookies"
 import MySpinner from "../Commons/MySpinner";
+import { MyDispatchContext } from "../../configs/Contexts";
 
 const Login = () => {
     const fields = [
@@ -22,6 +23,7 @@ const Login = () => {
     const [user, setUser] = useState({});
     const nav = useNavigate();
     const [loading, setLoading] = useState(false);
+    const dispatch = useContext(MyDispatchContext);
 
     const change = (e, field) => {
         setUser(current => {
@@ -38,10 +40,19 @@ const Login = () => {
             let res = await APIs.post(endpoints['login'], { ...user });
             console.info(res.data);
             cookie.save("token", res.data);
+
+            let u = await authApi().get(endpoints['current-user']);
+            cookie.save('user', u.data);
+            
+            dispatch({
+                "type": "login",
+                "payload": u.data
+            });
+
             nav('/');
         } catch (ex) {
             console.error(ex);
-            alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+            alert("Đã xảy ra lỗi!");
         } finally {
             setLoading(false);
         }
@@ -58,7 +69,7 @@ const Login = () => {
                                 {fields.map(f => (
                                     <Form.Group key={f.field} className="mb-2" controlId={f.field}>
                                         <Form.Label>{f.label}</Form.Label>
-                                        <Form.Control type={f.type} placeholder={f.label} />
+                                        <Form.Control onChange={e => change(e, f.field)} value={user[f.field]} type={f.type} placeholder={f.label} />
                                     </Form.Group>
                                 ))}
                                 <Button variant="primary" type="submit" className="mt-3 d-block mx-auto">
